@@ -40,7 +40,7 @@ const Popup = forwardRef<PopupRef, Props>(({ popup, dispatch }, ref) => {
     open,
     close,
   }))
-  return <div></div>
+  return <div>弹窗</div>
 })
 export default connect(({ popup, loading }: { popup: PopupModelState, loading: Loading}) => {
   return { popup, loading, }

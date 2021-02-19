@@ -26,6 +26,10 @@ export default defineConfig({
       resolve(__dirname, 'src/components/popup/model.ts'), // 不能使用 @, 因为@不能用，所以需要使用绝对路径
     ],
   },
+  alias: {
+    "@components": resolve(__dirname, 'src/components'),
+  },
+  fastRefresh: {},
   routes: [
     {
       path: '/login',

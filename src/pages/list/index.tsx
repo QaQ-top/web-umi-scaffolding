@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect, ConnectRC, ListModelState, Dispatch, Loading} from 'umi';
+import Popup from '@components/popup';
 
 interface Props {
   list: ListModelState;
@@ -13,6 +14,7 @@ const List: ConnectRC<Props> = ({ list, dispatch }) => {
   return (
     <div>
       List
+      <Popup />
     </div>
   );
 }
