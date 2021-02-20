@@ -1,5 +1,4 @@
-import React, { useReducer } from 'react';
-import { Link } from 'react-router-dom';
+import React, { } from 'react';
 import { Layout } from 'antd';
 import Sider from './components/sider';
 import Header from './components/header';

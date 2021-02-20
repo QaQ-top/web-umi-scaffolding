@@ -1,4 +1,22 @@
-export const sids = [
+interface SidsType {
+  name: string,
+  key: string,
+  path?: string,
+  routes?: ChildrenNode[],
+}
+interface ChildrenNode {
+  name: string,
+  key: string,
+  path: string,
+  children?: string[];
+}
+
+export const sids: SidsType[] = [
+  {
+    name: '首页',
+    key: '0',
+    path: '/',
+  },
   {
     name: '一级标题',
     key: '1',
@@ -28,10 +46,23 @@ export const sids = [
   },
 ];
 
+interface BreadType {
+  routes: {
+    name: string,
+    id: string,
+    path?: string,
+    parentId?: string,
+  }[]
+}
 
-export const database = {
+export const database: BreadType = {
   // 所有路由的节点关系,用于面包屑显示
   routes: [
+    {
+      name: '首页',
+      id: '0',
+      path: '/'
+    },
     {
       name: '一级标题',
       id: '1',

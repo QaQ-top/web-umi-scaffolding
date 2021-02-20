@@ -1,22 +1,5 @@
 import CryptoJS from 'crypto-js';
-// TODO: 未完成
-// import img from '@/assets/images/money.png';
-// let kv: any = undefined;
-// const img: any = new Image();
-// img.onload = () => {
-//   const canvas = document.createElement('canvas');
-//   const ctx: any = canvas.getContext('2d');
-//   ctx.canvas.width = img.width;
-//   ctx.canvas.height = img.height;
-//   ctx.drawImage(img, 0, 0);
-//   const imgData = ctx.getImageData(0, 0, img.width, img.height);
-//   const from: any = [];
-//   for (var i = 0; i < 47; i++) {
-//     from.push(imgData.data[i * 4]);
-//   }
-//   kv = JSON.parse(String.fromCharCode(...from));
-// };
-// img.src = imgUrl;
+
 const Crypto = {
   decrypt: async (word: any) => {
     if (!word) return '';

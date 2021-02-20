@@ -1,26 +1,26 @@
 import { Effect, ImmerReducer, Subscription, history } from 'umi';
 
-export interface ListModelState {
-  active: "1" | "2";
+export interface HomeModelState {
+  data: any[];
 }
 
-export interface ListModelType {
-  namespace: 'list';
-  state: ListModelState;
+export interface HomeModelType {
+  namespace: 'home';
+  state: HomeModelState;
   effects: {
     [k: string]: Effect;
   };
   reducers: {
-    [k: string]: ImmerReducer<ListModelState>;
+    [k: string]: ImmerReducer<HomeModelState>;
   };
   subscriptions: { setup: Subscription };
 }
 
-const ListModel: ListModelType = {
-  namespace: 'list',
+const HomeModel: HomeModelType = {
+  namespace: 'home',
 
   state: {
-    active: "1"
+    data: []
   },
 
   effects: {
@@ -30,21 +30,17 @@ const ListModel: ListModelType = {
 
   reducers: {
     setState(state, { payload }) {
-      
     },
-    setActive(state, { value }) {
-      state.active = value;
-    }
   },
 
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(async ({ pathname }) => {
-        if (pathname === '/list') {
+        if (pathname === '/home') {
         }
       });
     },
   },
 };
 
-export default ListModel;
+export default HomeModel;

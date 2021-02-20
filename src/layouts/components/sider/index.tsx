@@ -11,7 +11,7 @@ const InitSider = () => {
    * 提供 url访问 向Menu注入展开选中 
    */
   const { location: { pathname } } = history;
-  // 获取父级 张开
+  // 获取父级 展开
   const selectSub = sids.find(i => {
     // 是否是父级 || 是否是子( 是否是子本身 || 是否是子的子 )
     return i.path === pathname || i?.routes?.find((i) => {
@@ -24,7 +24,6 @@ const InitSider = () => {
     // 是否是子本身 || 是否是子的子
     return i.path === pathname || i.children?.find(i => i === pathname);
   }) : selectSub;
-
 
   /**
    * 获取 dom 树

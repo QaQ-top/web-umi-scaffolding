@@ -69,7 +69,6 @@ const Login: ConnectRC<Props> = (props) => {
               </Button>
             </Form.Item>
           </Form>
-          <Popup ref={popupRef} />
         </div>
       </div>
     </div>

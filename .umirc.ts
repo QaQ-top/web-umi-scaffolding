@@ -36,12 +36,12 @@ export default defineConfig({
       component: '@/pages/login',
     },
     {
-      path: '/',
-      redirect: '/list',
-    },
-    {
       component: '@/layouts',
       routes: [
+        {
+          path: '/',
+          component: '@/pages/home',
+        },
         {
           path: '/list',
           component: '@/pages/list',
