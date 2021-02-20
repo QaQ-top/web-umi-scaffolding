@@ -1,7 +1,6 @@
 import { Effect, ImmerReducer, Subscription, history } from 'umi';
 
 export interface ListModelState {
-  active: "1" | "2";
 }
 
 export interface ListModelType {
@@ -20,7 +19,6 @@ const ListModel: ListModelType = {
   namespace: 'list',
 
   state: {
-    active: "1"
   },
 
   effects: {
@@ -32,9 +30,6 @@ const ListModel: ListModelType = {
     setState(state, { payload }) {
       
     },
-    setActive(state, { value }) {
-      state.active = value;
-    }
   },
 
   subscriptions: {
