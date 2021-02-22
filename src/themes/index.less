@@ -9,3 +9,20 @@ body {
   height: 100%;
   overflow-y: hidden;
 }
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #d4d4d4;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a2a6ab;
+}
+
+:global(label.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover) {
+  color: #fff;
+}

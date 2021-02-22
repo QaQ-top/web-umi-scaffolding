@@ -4,13 +4,15 @@ import { Layout, Menu } from 'antd';
 
 import Styles from './style.less';
 
-const { Content } = Layout, { SubMenu, Item } = Menu;
-
+const { Content } = Layout,
+  { SubMenu, Item } = Menu;
 
 const InitContent: React.FC = ({ children }) => {
-  return <Content className={Styles.content} >
-    {children}
-  </Content>
-}
+  return (
+    <Content className={Styles.content}>
+      <div>{children}</div>
+    </Content>
+  );
+};
 
 export default InitContent;

@@ -20,27 +20,20 @@ const PopupModel: PopupModelType = {
   namespace: 'popup',
 
   state: {
-    data: []
+    data: [],
   },
 
   effects: {
-    *getServerData({ }, { call, put }) {
-      
-    },
+    *getServerData({}, { call, put }) {},
   },
 
   reducers: {
-    setState(state, { payload }) {
-      
-    },
+    setState(state, { payload }) {},
   },
 
   subscriptions: {
     setup({ dispatch, history }) {
-      return history.listen(async ({ pathname }) => {
-        if (pathname === '/popup') {
-        }
-      });
+      return history.listen(async ({ pathname }) => {});
     },
   },
 };
