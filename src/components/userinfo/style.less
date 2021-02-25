@@ -1,8 +1,38 @@
+.title {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  .username {
+    width: 88px;
+    margin-left: 10px;
+  }
+}
 .user_info {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   .username {
     margin-left: 10px;
+  }
+}
+.username {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.popover {
+  :global {
+    .ant-popover-title {
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+    .ant-popover-inner-content {
+      padding: 8px 0 8px 0;
+    }
+    .ant-menu-item {
+      margin: 0 !important;
+    }
   }
 }

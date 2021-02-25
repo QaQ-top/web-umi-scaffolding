@@ -11,7 +11,20 @@ const UserInfo: React.FC<Props> = ({ children }) => {
     <Popover
       placement="bottomRight"
       content={children}
-      title={'UserName'}
+      trigger="click"
+      title={
+        <div className={Styles.title}>
+          <Avatar
+            style={{
+              background: 'linear-gradient(135deg, #1890ff 0%, #add3f3 100%)',
+              color: '#fff',
+            }}
+          >
+            {'UserName'.slice(0, 1)}
+          </Avatar>
+          <div className={Styles.username}>UserName</div>
+        </div>
+      }
       overlayClassName={Styles.popover}
     >
       <div className={Styles.user_info}>
@@ -23,7 +36,7 @@ const UserInfo: React.FC<Props> = ({ children }) => {
         >
           {'UserName'.slice(0, 1)}
         </Avatar>
-        <div className={Styles.username}>UserName</div>
+        {/* <div className={Styles.username}>UserName</div> */}
       </div>
     </Popover>
   );

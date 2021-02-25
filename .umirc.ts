@@ -27,8 +27,12 @@ export default defineConfig({
     ],
   },
   alias: {
-    "@components": resolve(__dirname, 'src/components'),
+    '@components': resolve(__dirname, 'src/components'),
   },
+  headScripts: [
+    'https://webapi.amap.com/maps?v=1.4.1&key=0d78256ea89beeb8c25d1cd047549d1f',
+    'https://webapi.amap.com/ui/1.0/main.js?v=1.3.0',
+  ],
   fastRefresh: {},
   routes: [
     {

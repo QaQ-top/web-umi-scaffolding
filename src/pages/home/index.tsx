@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { connect, ConnectRC, HomeModelState, Dispatch, Loading } from 'umi';
 import Styles from './style.less';
 import Chart, { ChartRef } from '@components/chart';
+import { getMap } from '@/services/map';
 
 interface Props {
   home: HomeModelState;
@@ -35,6 +36,7 @@ const Home: ConnectRC<Props> = ({ home, dispatch }) => {
   return (
     <div>
       <Chart
+        ref={chart1}
         container="chart1"
         width={500}
         height={500}
@@ -189,15 +191,19 @@ const Home: ConnectRC<Props> = ({ home, dispatch }) => {
           ];
 
           chart.coordinate('theta', {
-            radius: 0.75,
+            // 配置坐标系
+            radius: 0.8, // 坐标系大小
           });
 
           chart.data(data);
 
-          chart.scale('percent', {
-            formatter: val => {
-              val = val * 100 + '%';
-              return val;
+          chart.scale({
+            // 坐标轴 axis、图例 legend、tooltip 上的
+            percent: {
+              formatter: val => {
+                val = val * 100 + '%';
+                return val;
+              },
             },
           });
 
@@ -210,7 +216,23 @@ const Home: ConnectRC<Props> = ({ home, dispatch }) => {
             .interval()
             .position('percent')
             .color('item')
-            .label('percent', {
+            .tooltip('item*percent', (name, value) => {
+              // 自定义 tooltip 提示
+              return {
+                name,
+                value: value * 100 + '%',
+              };
+            })
+            .label('item*percent', {
+              layout: { type: 'pie-spider' }, // 蜘蛛标签
+
+              // labelHeight: 20, // 标签高度
+              // labelLine: {
+              //   style: {
+              //     lineWidth: 0.5, // 线的粗细
+              //   },
+              // },
+              offset: '-20', // label 标签 偏移 可以让 标签移入饼图内部 与 蜘蛛标签不兼容
               content: data => {
                 return `${data.item}: ${data.percent * 100}%`;
               },
@@ -218,6 +240,100 @@ const Home: ConnectRC<Props> = ({ home, dispatch }) => {
             .adjust('stack');
 
           chart.interaction('element-active');
+
+          chart.render();
+        }}
+      />
+      <Chart
+        container="chart4"
+        // ref={chart1}
+        width={700}
+        height={500}
+        padding={[40, 40, 40, 40]}
+        init={async (chart, dataSet) => {
+          const mapData = await getMap();
+          console.log(mapData);
+          chart.tooltip({
+            showTitle: false,
+            showMarkers: false,
+            shared: true,
+          });
+
+          // 一定要 量度 同化
+          chart.scale({
+            longitude: {
+              sync: true,
+            },
+            latitude: {
+              sync: true,
+            },
+          });
+
+          chart.axis(false); // 生成地图 前才能去除 坐标系
+
+          // 生成地图数据
+          const worldDataSet = dataSet.createView('back').source(mapData, {
+            type: 'GeoJSON',
+          });
+
+          // 生成地图
+          const worldView = chart.createView();
+          worldView
+            .polygon() // 多边形
+            .tooltip(false)
+            .position('longitude*latitude')
+            .label('name', {
+              style: {
+                color: '#000',
+                fontSize: 12,
+              },
+            })
+            .style({
+              fill: '#fff', // 地图区域背景
+              stroke: '#ccc', // 地图区域描边颜色
+              lineWidth: 1, // 描边粗细
+            });
+          worldView.data(worldDataSet.rows);
+
+          let data = []; // 可视化数据
+
+          for (let i = 0; i < mapData.features.length; i++) {
+            let name = mapData.features[i].properties.name;
+            data.push({
+              name: name,
+              value: Math.round(Math.random() * 1000),
+            });
+          }
+          console.log(data);
+
+          // 用户数据
+          const userDateSet = dataSet
+            .createView()
+            .source(data)
+            .transform({
+              // 数据 转成对应的 地图数据
+              geoDataView: worldDataSet,
+              field: 'name',
+              type: 'geo.region',
+              as: ['longitude', 'latitude'],
+            });
+
+          const userView = chart.createView();
+          userView.data(userDateSet.rows);
+
+          userView
+            .polygon()
+            .position('longitude*latitude')
+            .color('value', '#F51D27')
+            .tooltip('name*value')
+            .style({
+              fillOpacity: 0.85,
+            })
+            .animate({
+              leave: {
+                animation: 'fade-out',
+              },
+            });
 
           chart.render();
         }}

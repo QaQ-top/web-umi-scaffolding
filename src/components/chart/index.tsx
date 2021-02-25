@@ -5,8 +5,13 @@ import React, {
   useRef,
 } from 'react';
 import { Chart } from '@antv/g2';
+import DataSet from '@antv/data-set';
 
-type Update = (params: { data: any[]; callback?: () => void }) => void;
+type Update = (params: {
+  data?: any[];
+  changeRender?: (chart: Chart, DataSet: DataSet) => void;
+  callback?: () => void;
+}) => void;
 
 export interface ChartRef {
   update: Update;
@@ -19,16 +24,23 @@ interface Props {
   width?: number;
   height: number;
   padding: number[];
-  init: (chart: Chart) => void;
+  init: (chart: Chart, DataSet: DataSet) => void;
 }
 
 const ChartComponents = forwardRef<ChartRef, Props>(
   ({ className, container, autoFit, width, height, padding, init }, ref) => {
     const ChartInt = useRef({} as Chart);
-    // 更新数据
-    const update: Update = async ({ data, callback }) => {
-      console.log(ChartInt.current);
-      await ChartInt.current.changeData(data);
+    const DataSetInt = useRef({} as DataSet);
+    /**
+     * 更新数据 / 重新渲染
+     * @description
+     * @param {*} { data, callback, changeRender }
+     * 使用 data 会直接更新渲染，不要同时使用 data 与 changeRender
+     */
+    const update: Update = async ({ data, callback, changeRender }) => {
+      data && (await ChartInt.current.changeData(data));
+      if (changeRender && !data)
+        await changeRender(ChartInt.current, DataSetInt.current);
       callback?.();
     };
 
@@ -39,15 +51,15 @@ const ChartComponents = forwardRef<ChartRef, Props>(
     // 绘制
     useLayoutEffect(() => {
       if (!(ChartInt.current instanceof Chart)) {
-        const chart = new Chart({
+        DataSetInt.current = new DataSet();
+        ChartInt.current = new Chart({
           container,
           autoFit,
           width,
           height,
           padding,
         });
-        ChartInt.current = chart;
-        init(chart);
+        init(ChartInt.current, DataSetInt.current);
       }
     }, []);
     return <div id={container} className={className ?? ''}></div>;
