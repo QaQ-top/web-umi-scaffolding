@@ -100,7 +100,7 @@
     "cn": "巴哈马",
     "mapFileName": "The_Bahamas"
   },
-  "Bosnia and Herz.": {
+  "Bosnia and Herzegovina": {
     "cn": "波斯尼亚和黑塞哥维那",
     "mapFileName": "Bosnia_and_Herzegovina"
   },
@@ -136,7 +136,7 @@
     "cn": "博茨瓦纳",
     "mapFileName": "Botswana"
   },
-  "Central African Rep.": {
+  "Central African Republic": {
     "cn": "中非",
     "mapFileName": "Central_African_Republic"
   },
@@ -162,11 +162,11 @@
     "cn": "喀麦隆",
     "mapFileName": "Cameroon"
   },
-  "Dem. Rep. Congo": {
+  "Democratic Republic of the Congo": {
     "cn": "刚果(金)",
     "mapFileName": "Congo-Kinshasa"
   },
-  "Congo": {
+  "Republic of the Congo": {
     "cn": "刚果(布)",
     "mapFileName": "Congo-Brazzaville"
   },
@@ -182,14 +182,14 @@
     "cn": "古巴",
     "mapFileName": "Cuba"
   },
-  "N. Cyprus": {
+  "Northern Cyprus": {
     "cn": "北塞浦路斯"
   },
   "Cyprus": {
     "cn": "塞浦路斯",
     "mapFileName": "Cyprus"
   },
-  "Czech Rep.": {
+  "Czech Republic": {
     "cn": "捷克",
     "mapFileName": "Czechia"
   },
@@ -277,7 +277,7 @@
     "cn": "几内亚比绍",
     "mapFileName": "Guinea-Bissau"
   },
-  "Eq. Guinea": {
+  "Equatorial Guinea": {
     "cn": "赤道几内亚",
     "mapFileName": "Equatorial_Guinea"
   },
@@ -376,7 +376,7 @@
     "cn": "柬埔寨",
     "mapFileName": "Cambodia"
   },
-  "Korea": {
+  "South Korea": {
     "cn": "韩国",
     "mapFileName": "South_Korea"
   },
@@ -388,7 +388,7 @@
     "cn": "科威特",
     "mapFileName": "Kuwait"
   },
-  "Lao PDR": {
+  "Laos": {
     "cn": "老挝",
     "mapFileName": "Laos"
   },
@@ -542,7 +542,7 @@
   "Puerto Rico": {
     "cn": "波多黎各"
   },
-  "Dem. Rep. Korea": {
+  "North Korea": {
     "cn": "朝鲜",
     "mapFileName": "North_Korea"
   },
@@ -570,7 +570,7 @@
     "cn": "卢旺达",
     "mapFileName": "Rwanda"
   },
-  "W. Sahara": {
+  "Western Sahara": {
     "cn": "西撒哈拉"
   },
   "Saudi Arabia": {
@@ -581,7 +581,7 @@
     "cn": "苏丹",
     "mapFileName": "Sudan"
   },
-  "S. Sudan": {
+  "South Sudan": {
     "cn": "南苏丹",
     "mapFileName": "South_Sudan"
   },
@@ -589,7 +589,7 @@
     "cn": "塞内加尔",
     "mapFileName": "Senegal"
   },
-  "Solomon Is.": {
+  "Solomon Islands": {
     "cn": "所罗门群岛",
     "mapFileName": "Solomon_Islands"
   },
@@ -608,7 +608,7 @@
     "cn": "索马里",
     "mapFileName": "Somalia"
   },
-  "Serbia": {
+  "Republic of Serbia": {
     "cn": "塞尔维亚",
     "mapFileName": "Serbia"
   },
@@ -672,7 +672,7 @@
     "cn": "土耳其",
     "mapFileName": "Turkey"
   },
-  "Tanzania": {
+  "United Republic of Tanzania": {
     "cn": "坦桑尼亚",
     "mapFileName": "Tanzania"
   },
@@ -688,7 +688,7 @@
     "cn": "乌拉圭",
     "mapFileName": "Uruguay"
   },
-  "United States": {
+  "United States of America": {
     "cn": "美国",
     "mapFileName": "USA"
   },

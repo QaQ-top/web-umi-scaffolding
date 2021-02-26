@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { connect, ConnectRC, HomeModelState, Dispatch, Loading } from 'umi';
 import Styles from './style.less';
 import Chart, { ChartRef } from '@components/chart';
-import { getMap } from '@/services/map';
+import Map from '@components/chartmap';
 
 interface Props {
   home: HomeModelState;
@@ -244,126 +244,7 @@ const Home: ConnectRC<Props> = ({ home, dispatch }) => {
           chart.render();
         }}
       />
-      <Chart
-        container="chart4"
-        // ref={chart1}
-        width={700}
-        height={500}
-        padding={[40, 40, 40, 40]}
-        init={async (chart, dataSet) => {
-          const mapData = await getMap();
-          console.log(mapData);
-          // 浮动弹窗
-          chart.tooltip({
-            showTitle: false,
-            showMarkers: false,
-            shared: true,
-          });
-
-          // 一定要 量度 同化
-          chart.scale({
-            longitude: {
-              sync: true,
-            },
-            latitude: {
-              sync: true,
-            },
-          });
-
-          chart.axis(false); // 生成地图 前才能去除 坐标系
-
-          // 生成地图数据
-          const worldDataSet = dataSet.createView('back').source(mapData, {
-            type: 'GeoJSON',
-          });
-
-          // 生成地图
-          const worldView = chart.createView();
-          worldView
-            .polygon() // 多边形
-            .tooltip(false)
-            .position('longitude*latitude')
-            .label('name', {
-              style: {
-                fill: '#000', // 字体颜色
-                fontSize: 10,
-              },
-            })
-            .style({
-              fill: '#fff', // 地图区域背景
-              stroke: '#ccc', // 地图区域描边颜色
-              lineWidth: 1, // 描边粗细
-              color: '#000',
-            });
-          worldView.data(worldDataSet.rows);
-
-          let data = []; // 可视化数据
-
-          for (let i = 0; i < mapData.features.length; i++) {
-            let name = mapData.features[i].properties.name;
-            data.push({
-              name: name,
-              value: Math.round(Math.random() * 1000),
-            });
-          }
-          console.log(data.sort((a, b) => a.value - b.value));
-          if (data.length == 0) return;
-          // 用户数据
-          const userDateSet = dataSet
-            .createView()
-            .source(data)
-            .transform({
-              // 数据 转成对应的 地图数据
-              geoDataView: worldDataSet,
-              field: 'name',
-              type: 'geo.region',
-              as: ['longitude', 'latitude'],
-            })
-            .transform({
-              // 在原来对象上扩展 新属性
-              type: 'map',
-              callback: (object: any) => {
-                switch (true) {
-                  case object.value <= 100:
-                    object.trend = '0-100';
-                    break;
-                  case 100 < object.value && object.value <= 500:
-                    object.trend = '100-500';
-                    break;
-                  case 500 < object.value && object.value <= 1000:
-                    object.trend = '500-1000';
-                    break;
-                }
-                return object;
-              },
-            });
-
-          const userView = chart.createView();
-          userView.data(userDateSet.rows);
-
-          userView
-            .polygon()
-            .position('longitude*latitude')
-            .color('trend', '#BAE7FF-#69C0FF-#40A9FF') // 太多不同会以滑块的方式展开
-            .tooltip('name*value', (name, value) => {
-              return {
-                name,
-                value: value + '票',
-              };
-            })
-            .style({
-              fillOpacity: 0.85,
-            });
-          // .animate({
-          //   leave: {
-          //     animation: 'fade-out',
-          //   },
-          // });
-          userView.interaction('element-active');
-
-          chart.render();
-        }}
-      />
+      <Map />
     </div>
   );
 };
