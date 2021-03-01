@@ -5,7 +5,9 @@ import React, {
   useRef,
 } from 'react';
 import { Chart } from '@antv/g2';
+import { ChartCfg } from '@antv/g2/lib/interface';
 import DataSet from '@antv/data-set';
+import Styles from './style.less';
 
 type Update = (params: {
   data?: any[];
@@ -17,13 +19,9 @@ export interface ChartRef {
   update: Update;
 }
 
-interface Props {
+interface Props extends ChartCfg {
   className?: string;
   container: string;
-  autoFit?: boolean;
-  width?: number;
-  height: number;
-  padding: number[];
   init: (chart: Chart, DataSet: DataSet) => void;
 }
 
@@ -52,6 +50,13 @@ const ChartComponents = forwardRef<ChartRef, Props>(
     useLayoutEffect(() => {
       if (!(ChartInt.current instanceof Chart)) {
         DataSetInt.current = new DataSet();
+        console.log({
+          container,
+          autoFit,
+          width,
+          height,
+          padding,
+        });
         ChartInt.current = new Chart({
           container,
           autoFit,
@@ -60,9 +65,17 @@ const ChartComponents = forwardRef<ChartRef, Props>(
           padding,
         });
         init(ChartInt.current, DataSetInt.current);
+        const e = document.createEvent('Event');
+        e.initEvent('resize', true, true);
+        window.dispatchEvent(e);
       }
     }, []);
-    return <div id={container} className={className ?? ''}></div>;
+    return (
+      <div
+        id={container}
+        className={`${Styles.container} ${className ?? ''}`}
+      ></div>
+    );
   },
 );
 

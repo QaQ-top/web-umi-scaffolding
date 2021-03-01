@@ -38,7 +38,8 @@ const Home: ConnectRC<Props> = ({ home, dispatch }) => {
       <Chart
         ref={chart1}
         container="chart1"
-        width={500}
+        autoFit={true}
+        // width={500}
         height={500}
         padding={[40, 40, 40, 40]}
         init={async chart => {
@@ -244,7 +245,6 @@ const Home: ConnectRC<Props> = ({ home, dispatch }) => {
           chart.render();
         }}
       />
-      <Map />
     </div>
   );
 };

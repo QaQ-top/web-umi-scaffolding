@@ -9,6 +9,8 @@ import Styles from './style.less';
 
 interface Props {
   autoFit?: boolean;
+  width?: number;
+  height?: number;
 }
 
 // 图例 分类
@@ -135,7 +137,7 @@ function setInteraction(chart: G2Chart.Chart) {
   chart.interaction('element-active').interaction('legend-highlight');
 }
 
-const ChartMap: React.FC<Props> = ({ autoFit }) => {
+const ChartMap: React.FC<Props> = ({ autoFit, width, height }) => {
   const [state, setState] = useState(1);
   return (
     <div className={Styles.map}>
@@ -143,8 +145,8 @@ const ChartMap: React.FC<Props> = ({ autoFit }) => {
         <Chart
           container="chart_global"
           autoFit={autoFit}
-          width={1200}
-          height={800}
+          width={width}
+          height={height}
           padding={[40, 40, 40, 40]}
           init={async (chart, dataSet) => {
             // NOT GO 获取地图数据
@@ -197,17 +199,36 @@ const ChartMap: React.FC<Props> = ({ autoFit }) => {
           <Chart
             container="chart_global_next_level"
             autoFit={autoFit}
-            width={700}
-            height={700}
+            width={width}
+            height={height}
             padding={[40, 40, 40, 40]}
             init={async (chart, dataSet) => {
               // NOT GO 获取地图数据
-              const mapData = await (
-                await fetch(
-                  `/echarts-map-data-master/world/geojson/${window.target.mapFileName}.json`,
-                )
-              ).json();
-              console.log(mapData);
+              console.log(window.target.mapFileName);
+              const mapData = window.target.mapFileName
+                ? await (
+                    await fetch(
+                      `/echarts-map-data-master/world/geojson/${window.target.mapFileName}.json`,
+                    )
+                  ).json()
+                : null;
+              console.log('FFFFFFFFFF', mapData);
+
+              if (!mapData) {
+                chart.annotation().text({
+                  position: ['50%', '50%'], // 位置
+                  content: '暂无该地区的数据', // 内容
+                  style: {
+                    // 样式
+                    fontSize: 24,
+                    fill: '#8c8c8c',
+                    textAlign: 'center',
+                  },
+                  // offsetY: -20, // 偏移
+                });
+                chart.render();
+                return;
+              }
 
               // 初始化
               InitChart(chart);

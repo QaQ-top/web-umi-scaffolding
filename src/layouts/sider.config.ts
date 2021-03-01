@@ -1,13 +1,13 @@
 interface SidsType {
-  name: string,
-  key: string,
-  path?: string,
-  routes?: ChildrenNode[],
+  name: string;
+  key: string;
+  path?: string;
+  routes?: ChildrenNode[];
 }
 interface ChildrenNode {
-  name: string,
-  key: string,
-  path: string,
+  name: string;
+  key: string;
+  path: string;
   children?: string[];
 }
 
@@ -28,7 +28,7 @@ export const sids: SidsType[] = [
       },
       {
         name: '二级标题12',
-        path: '/lastingip',
+        path: '/map',
         key: '1-2',
       },
       {
@@ -48,11 +48,11 @@ export const sids: SidsType[] = [
 
 interface BreadType {
   routes: {
-    name: string,
-    id: string,
-    path?: string,
-    parentId?: string,
-  }[]
+    name: string;
+    id: string;
+    path?: string;
+    parentId?: string;
+  }[];
 }
 
 export const database: BreadType = {
@@ -61,7 +61,7 @@ export const database: BreadType = {
     {
       name: '首页',
       id: '0',
-      path: '/'
+      path: '/',
     },
     {
       name: '一级标题',
@@ -75,7 +75,7 @@ export const database: BreadType = {
     },
     {
       name: '二级标题12',
-      path: '/lastingip',
+      path: '/map',
       id: '1-2',
       parentId: '1',
     },
@@ -90,6 +90,5 @@ export const database: BreadType = {
       id: '2',
       path: '/ssss',
     },
-    
-  ]
+  ],
 };

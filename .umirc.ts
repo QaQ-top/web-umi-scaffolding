@@ -50,6 +50,10 @@ export default defineConfig({
           path: '/list',
           component: '@/pages/list',
         },
+        {
+          path: '/map',
+          component: '@/pages/map',
+        },
       ],
     },
   ],
