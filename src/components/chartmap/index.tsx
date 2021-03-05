@@ -47,7 +47,6 @@ function CreateMap(
   const worldDataSet = dataSet.createView().source(mapData, {
     type: 'GeoJSON',
   });
-
   // 生成地图
   const worldView = chart.createView();
   worldView.data(worldDataSet.rows);
@@ -121,12 +120,7 @@ function CreateUserData(
       };
     })
     .style({
-      fillOpacity: 0.85,
-    })
-    .animate({
-      leave: {
-        animation: 'fade-out',
-      },
+      fillOpacity: 0.8,
     });
   return [userView, userDateSet];
 }
@@ -135,6 +129,23 @@ function CreateUserData(
 function setInteraction(chart: G2Chart.Chart) {
   chart.removeInteraction('legend-filter'); // 地图问题 建议 移除这个数据过滤
   chart.interaction('element-active').interaction('legend-highlight');
+}
+
+// 提示语
+function Tips(chart: G2Chart.View, text: string) {
+  chart.annotation().text({
+    position: ['50%', '50%'], // 位置
+    content: text, // 内容
+    style: {
+      // 样式
+      fontSize: 24,
+      fill: '#8c8c8c',
+      textAlign: 'center',
+    },
+    // offsetY: -20, // 偏移
+  });
+  chart.render();
+  return chart;
 }
 
 const ChartMap: React.FC<Props> = ({ autoFit, width, height }) => {
@@ -189,13 +200,14 @@ const ChartMap: React.FC<Props> = ({ autoFit, width, height }) => {
               setState(2);
             });
             setInteraction(chart);
-
+            console.time('渲染时间');
             chart.render();
+            console.timeEnd('渲染时间');
           }}
         />
       )}
       {state === 2 && (
-        <div className={Styles.map_two_level}>
+        <div key={'2'} className={Styles.map_two_level}>
           <Chart
             container="chart_global_next_level"
             autoFit={autoFit}
@@ -204,6 +216,7 @@ const ChartMap: React.FC<Props> = ({ autoFit, width, height }) => {
             padding={[40, 40, 40, 40]}
             init={async (chart, dataSet) => {
               // NOT GO 获取地图数据
+              const mapLoading = Tips(chart.createView(), '地图数据加载中...');
               console.log(window.target.mapFileName);
               const mapData = window.target.mapFileName
                 ? await (
@@ -212,28 +225,12 @@ const ChartMap: React.FC<Props> = ({ autoFit, width, height }) => {
                     )
                   ).json()
                 : null;
-              console.log('FFFFFFFFFF', mapData);
-
               if (!mapData) {
-                chart.annotation().text({
-                  position: ['50%', '50%'], // 位置
-                  content: '暂无该地区的数据', // 内容
-                  style: {
-                    // 样式
-                    fontSize: 24,
-                    fill: '#8c8c8c',
-                    textAlign: 'center',
-                  },
-                  // offsetY: -20, // 偏移
-                });
+                mapLoading.changeVisible(false);
+                Tips(chart.createView(), '暂无该地区地图数据');
                 chart.render();
                 return;
               }
-
-              // 初始化
-              InitChart(chart);
-              // 创建地图
-              const [mapView, mapDataSet] = CreateMap(chart, dataSet, mapData);
 
               // NOT GO 获取展示数据
               let data = [];
@@ -245,7 +242,17 @@ const ChartMap: React.FC<Props> = ({ autoFit, width, height }) => {
                 });
               }
               console.log(data.sort((a, b) => a.value - b.value));
-              if (data.length == 0) return chart.render();
+              if (data.length == 0) {
+                mapLoading.changeVisible(false);
+                Tips(chart.createView(), '该地区暂无资源');
+                chart.render();
+                return;
+              }
+
+              // 初始化
+              InitChart(chart);
+              // 创建地图
+              const [mapView, mapDataSet] = CreateMap(chart, dataSet, mapData);
 
               // 展示数据 关联地图
               const [userView, userDataSet] = CreateUserData(
@@ -254,10 +261,11 @@ const ChartMap: React.FC<Props> = ({ autoFit, width, height }) => {
                 mapDataSet,
                 data,
               );
-
               setInteraction(chart);
-
-              chart.render();
+              console.time('渲染时间');
+              chart.render(true);
+              mapLoading.changeVisible(false);
+              console.timeEnd('渲染时间');
             }}
           />
           <Button type="link" onClick={() => setState(1)}>

@@ -1,6 +1,7 @@
 import CryptoJS from 'crypto-js';
 
 const Crypto = {
+  // 解密
   decrypt: async (word: any) => {
     if (!word) return '';
     const key = CryptoJS.enc.Utf8.parse('y7AV2c834Bv9ONGF');
@@ -18,6 +19,7 @@ const Crypto = {
     );
     return decryptedStr;
   },
+  // 加密
   crypto: (word: any) => {
     if (!word) return '';
     word = JSON.stringify(word);

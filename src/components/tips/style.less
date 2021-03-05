@@ -1,0 +1,119 @@
+.popup {
+  width: 365px !important;
+  &.popupOneBtn {
+    button {
+      margin-right: 20px !important;
+    }
+  }
+  :global {
+    .ant-modal-body {
+      margin: 0;
+      padding: 0 0 24px 0 !important;
+    }
+    .ant-modal-confirm-title {
+      padding: 16px 24px;
+      // border-bottom: 1px solid #e8e8e8;
+      position: relative;
+      margin-bottom: 20px;
+      &::after {
+        position: absolute;
+        bottom: 0;
+        content: '';
+        width: 317px;
+        height: 1px;
+        background-color: #e8e8e8;
+      }
+    }
+    .ant-modal-confirm-btns {
+      width: auto;
+      display: flex;
+      margin-right: 24px;
+      button {
+        min-width: 74px;
+        height: 32px;
+        padding: 0 10px 0 10px;
+        line-height: 32px;
+        text-align: center;
+      }
+      > button:nth-last-child(1) {
+        margin-left: 16px;
+      }
+    }
+  }
+}
+.notBtn {
+  :global {
+    .ant-modal-confirm-btns {
+      display: none;
+    }
+  }
+}
+.ok {
+  :global {
+    .ant-modal-confirm-btns {
+      button:nth-last-child(2) {
+        display: none;
+      }
+    }
+  }
+}
+.cancel {
+  :global {
+    .ant-modal-confirm-btns {
+      button:nth-last-child(1) {
+        display: none;
+      }
+    }
+  }
+}
+
+.popup_content {
+  padding: 0 24px;
+  font-size: 14px;
+  line-height: 20px;
+  display: flex;
+  justify-content: flex-start;
+  > img {
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+  }
+  > div {
+    width: 96%;
+    padding-left: 10px;
+  }
+}
+.title {
+  display: flex;
+  font-size: 16px;
+  color: #333;
+  font-weight: 400;
+  justify-content: space-between;
+  > img {
+    width: 22px;
+    cursor: pointer;
+  }
+}
+.popup_tips {
+  width: 432px !important;
+}
+.tips_title {
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: 400;
+  color: #28282a;
+  padding: 24px 24px 16px 24px;
+  img {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+  }
+  * {
+    vertical-align: middle;
+  }
+}
+.popup_tips_content {
+  padding: 0 24px 0 50px;
+  // color: @text-color-tertiary;
+  white-space: pre-line;
+}

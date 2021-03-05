@@ -1,5 +1,18 @@
 .sider {
   background-color: #fff;
+  position: relative;
+  height: calc(100vh);
+  :global {
+    .ant-layout-sider-children {
+      padding-top: 64px;
+      padding-bottom: 58px;
+      overflow-x: hidden;
+      box-shadow: 0px 64px 12px -5px #8e8e8e;
+      .ant-menu-item {
+        margin-top: 0;
+      }
+    }
+  }
 }
 .logo {
   width: 100%;
@@ -8,9 +21,34 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  z-index: 10;
   // box-shadow: 0 0 10px 0 rgba(0, 0, 0, .2);
 }
 
 .menu {
   border: none;
+}
+
+.collapsed {
+  background-color: #fff;
+  width: 100%;
+  padding: 0 24px;
+  padding-bottom: 24px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  &.child_right {
+    text-align: right;
+  }
+  &.child_center {
+    text-align: center;
+  }
+  > span {
+    font-size: 20px;
+    cursor: pointer;
+  }
 }

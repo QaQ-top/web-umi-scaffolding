@@ -1,8 +1,21 @@
 .content {
   padding: 0 24px 24px 24px;
   overflow: auto;
-  > div {
+  overflow-x: hidden;
+  position: relative;
+  // &::before {
+  //   content: '';
+  //   display: block;
+  //   width: calc(100% - 48px);
+  //   border-top: 20px solid #fff;
+  //   position: absolute;
+  //   left: 24px;
+  //   top: 0;
+  // }
+  .box {
     background-color: #fff;
+    box-shadow: 0 0 8px -5px #8e8e8e;
     padding: 20px;
+    min-height: calc(100vh - 130px);
   }
 }

@@ -1,6 +1,11 @@
 import { Effect, ImmerReducer, Subscription, history } from 'umi';
 
 export interface TablesModelState {
+  query: {
+    username: string;
+    status: number | string;
+  };
+
   pagination: {
     current: number;
     total: number;
@@ -18,13 +23,15 @@ export interface TablesModelType {
   reducers: {
     [k: string]: ImmerReducer<TablesModelState>;
   };
-  subscriptions: { setup: Subscription };
 }
 
 const TablesModel: TablesModelType = {
   namespace: 'tables',
-
   state: {
+    query: {
+      username: '',
+      status: '',
+    },
     pagination: {
       current: 1,
       total: 100,
@@ -34,8 +41,12 @@ const TablesModel: TablesModelType = {
   },
 
   effects: {
-    *getDataList({}, { call, put }) {
+    *getDataList({}, { call, put, select }) {
+      const { query, pagination }: TablesModelState = yield select(
+        (state: any) => state.tables,
+      );
       try {
+        console.log(query, pagination);
         const res = yield call(() => Promise.resolve());
         yield put({
           type: 'setDataList',
@@ -52,17 +63,18 @@ const TablesModel: TablesModelType = {
     setDataList(state, { value }) {
       state.dataList = value;
     },
+
     setPagination(state, { pagination }) {
       state.pagination = {
         ...state.pagination,
         ...pagination,
       };
     },
-  },
-
-  subscriptions: {
-    setup({ dispatch, history }) {
-      return history.listen(async ({ pathname }) => {});
+    setQuery(state, { query }) {
+      state.query = {
+        ...state.query,
+        ...query,
+      };
     },
   },
 };

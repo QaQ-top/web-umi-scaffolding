@@ -6,16 +6,18 @@ interface Props {
   isPermissions: boolean;
   buttonAttr: ButtonProps;
   disabled?: boolean;
+  title?: string | React.ReactNode;
 }
 
 const NotAuthTips: React.FC<Props> = ({
   isPermissions,
   buttonAttr,
   disabled,
+  title,
   children,
 }) => {
   return (
-    <Tooltip title={isPermissions ? undefined : '暂无操作权限'}>
+    <Tooltip title={isPermissions ? title || undefined : '暂无操作权限'}>
       <Button {...buttonAttr} {...{ disabled: !isPermissions || disabled }}>
         {children}
       </Button>

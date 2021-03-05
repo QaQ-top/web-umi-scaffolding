@@ -1,0 +1,55 @@
+$menu-bgcolor: #f4f7fe; //菜单背景色
+$table-thcolor: #f7f9fc; //表格头部背景色
+$table-tr-even: #f8fbff; //表格body偶数行背景色
+$tselect-bgcolor: #f8fbff; //表格选择项背景色
+$primary-color: #4e90ff; // 主题色
+$link-color: #4e90ff; // 链接色
+$success-color: #52c41a; // 成功色
+$warning-color: #faad14; // 警告色
+$error-color: #f5222d; // 错误色
+// 文字颜色
+$text-color: #28282a; // 主文本色
+$text-color-secondary: #5b5c60; // 次文本色
+$text-color-tertiary: #87878b; // 第三级文本色
+$text-color-quaternary: #afb0b2; // 第四级文本色
+$disabled-color: $text-color-quaternary; // 失效色
+// 按钮hover色
+$btnhover-color: #7296fe;
+// 按钮active色
+$btnactive-color: #305ee3;
+// 主题色透明度
+$primary-color-light: #e6f7ff;
+// 背景色
+$primary-bgcolor: #f0f2f4;
+
+// 容器背景色
+$box-bgcolor: #fff;
+// 边框线
+$border-color: #e8e8e8;
+// 灰色
+$gray: #d9d9d9;
+
+// 强调色
+$strong-color: red;
+// 边框阴影
+// $box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
+$box-shadow: 0px 4px 24px rgba(178, 179, 209, 0.3);
+// 文字背景
+$text-bgcolor: #e6f7ff;
+// 浅色字体颜色
+$light-textColor: rgba(0, 0, 0, 0.65);
+// 灰色颜色
+$grey-color: #e8e8e8;
+// 侧边栏宽度
+$menuBarWidth: 260px;
+
+// 左侧菜单字体颜色
+$menuColor: #24374e;
+$menuColor-secondary: #90979e;
+$menuBg: #fff;
+$menuBgDark: #90979e;
+$menuSelectedBg: #4e90ff;
+$menuSelectedColor: #fff;
+
+// 头部
+$headerBannerHeight: 73px;

@@ -4,6 +4,7 @@ import React, {
   forwardRef,
   useRef,
 } from 'react';
+import { useModel } from 'umi';
 import { Chart } from '@antv/g2';
 import { ChartCfg } from '@antv/g2/lib/interface';
 import DataSet from '@antv/data-set';
@@ -29,6 +30,7 @@ const ChartComponents = forwardRef<ChartRef, Props>(
   ({ className, container, autoFit, width, height, padding, init }, ref) => {
     const ChartInt = useRef({} as Chart);
     const DataSetInt = useRef({} as DataSet);
+    const { onResize } = useModel('global');
     /**
      * 更新数据 / 重新渲染
      * @description
@@ -50,14 +52,8 @@ const ChartComponents = forwardRef<ChartRef, Props>(
     useLayoutEffect(() => {
       if (!(ChartInt.current instanceof Chart)) {
         DataSetInt.current = new DataSet();
-        console.log({
-          container,
-          autoFit,
-          width,
-          height,
-          padding,
-        });
         ChartInt.current = new Chart({
+          renderer: 'canvas',
           container,
           autoFit,
           width,
@@ -65,9 +61,7 @@ const ChartComponents = forwardRef<ChartRef, Props>(
           padding,
         });
         init(ChartInt.current, DataSetInt.current);
-        const e = document.createEvent('Event');
-        e.initEvent('resize', true, true);
-        window.dispatchEvent(e);
+        autoFit && onResize();
       }
     }, []);
     return (

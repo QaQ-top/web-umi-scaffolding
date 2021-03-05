@@ -23,7 +23,7 @@ export default defineConfig({
     hmr: true,
     skipModelValidate: false,
     extraModels: [
-      resolve(__dirname, 'src/components/popup/model.ts'), // 不能使用 @, 因为@不能用，所以需要使用绝对路径
+      // resolve(__dirname, 'src/components/popup/model.ts'), // 不能使用 @, 因为@不能用，所以需要使用绝对路径
     ],
   },
   alias: {
@@ -36,10 +36,12 @@ export default defineConfig({
   fastRefresh: {},
   routes: [
     {
+      exact: true,
       path: '/login',
       component: '@/pages/login',
     },
     {
+      exact: true,
       component: '@/layouts',
       routes: [
         {
@@ -54,6 +56,7 @@ export default defineConfig({
           path: '/map',
           component: '@/pages/map',
         },
+        { component: '@/pages/404' },
       ],
     },
   ],

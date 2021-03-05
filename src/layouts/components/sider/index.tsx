@@ -1,12 +1,15 @@
 import React from 'react';
 import { Layout, Menu } from 'antd';
-import { history } from 'umi';
+import { history, useModel } from 'umi';
+import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 const { Sider } = Layout,
   { SubMenu, Item } = Menu;
 import Styles from './style.less';
 import { sids } from '@/layouts/sider.config';
 
 const InitSider = () => {
+  const { collapsed, toggleCollapsed } = useModel('global');
+
   /**
    * 提供 url访问 向Menu注入展开选中
    */
@@ -70,7 +73,7 @@ const InitSider = () => {
   };
 
   return (
-    <Sider className={Styles.sider}>
+    <Sider className={Styles.sider} collapsed={collapsed}>
       <Menu
         className={Styles.menu}
         mode="inline"
@@ -80,6 +83,15 @@ const InitSider = () => {
         <div className={Styles.logo}>LOGO</div>
         {getMenu(sids)}
       </Menu>
+      <div
+        className={`${Styles.collapsed} ${
+          collapsed ? Styles.child_center : Styles.child_right
+        }`}
+      >
+        <span onClick={toggleCollapsed}>
+          {collapsed ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
+        </span>
+      </div>
     </Sider>
   );
 };

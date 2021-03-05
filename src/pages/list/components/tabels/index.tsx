@@ -1,7 +1,8 @@
 import React from 'react';
-import { connect, ConnectRC, TablesModelState, Dispatch, Loading } from 'umi';
-import { Form, Table, Input, Button, Divider } from 'antd';
+import { connect, TablesModelState, Dispatch, Loading } from 'umi';
+import { Form, Table, Input, Select, Button, Divider } from 'antd';
 import EmptyBlock from '@components/emptyblock';
+import { stringTrim } from '@/utils/formatData';
 import Styles from './style.less';
 
 interface Props {
@@ -80,14 +81,64 @@ const Tables: React.FC<Props> = ({ tables, loading, dispatch }) => {
     },
   };
 
+  const submit = (values: any) => {
+    dispatch({
+      type: 'tables/setPagination',
+      pagination: {
+        current: 1,
+      },
+    });
+    dispatch({
+      type: 'tables/setQuery',
+      query: {
+        username: stringTrim(values.username),
+        status: stringTrim(values.status),
+      },
+    });
+    dispatch({ type: 'tables/getDataList' });
+  };
+
+  const reset = () => {
+    form.resetFields();
+    dispatch({
+      type: 'tables/setQuery',
+      query: {
+        username: '',
+        status: '',
+      },
+    });
+    dispatch({ type: 'tables/getDataList' });
+  };
+
   return (
     <>
-      <Form form={form} layout="inline">
+      <Form form={form} layout="inline" onFinish={submit} onReset={reset}>
         <Form.Item name="username" label="用户名">
           <Input />
         </Form.Item>
         <Form.Item name="status" label="状态">
-          <Input />
+          <Select
+            allowClear
+            showSearch
+            style={{ minWidth: 174 }}
+            optionFilterProp="title"
+          >
+            {['2', '7', '9'].map(i => {
+              return (
+                <Select.Option key={i} value={i} title={i}>
+                  {i}
+                </Select.Option>
+              );
+            })}
+          </Select>
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            查询
+          </Button>
+        </Form.Item>
+        <Form.Item>
+          <Button htmlType="reset">重置</Button>
         </Form.Item>
       </Form>
       <Table

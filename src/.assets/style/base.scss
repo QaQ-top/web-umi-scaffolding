@@ -1,0 +1,52 @@
+:global {
+  .vertical-middle {
+    vertical-align: middle;
+  }
+  .vertical-baseline {
+    vertical-align: baseline;
+  }
+  .vertical-sub {
+    vertical-align: sub;
+  }
+  .overflow-hidden {
+    overflow: hidden;
+  }
+  .text-center {
+    text-align: center;
+  }
+  .text-left {
+    text-align: left;
+  }
+  .cursor-pointer {
+    cursor: pointer;
+  }
+  .flex-directio--column {
+    flex-direction: column;
+    -webkit-flex-direction: column;
+  }
+  .display-none {
+    display: none;
+  }
+  .display-flex {
+    display: -webkit-flex; /* 新版本语法: Chrome 21+ */
+    display: -webkit-box; /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+    display: -ms-flexbox; /* 混合版本语法: IE 10 */
+    display: flex; /* 新版本语法: Opera 12.1, Firefox 22+ */
+  }
+  .justify-content--space-between {
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+  }
+  .flex-one {
+    -webkit-flex: 1;
+    flex: 1;
+  }
+  .align-items--center {
+    -webkit-align-items: center;
+    align-items: center;
+  }
+  .align-items--end {
+    -webkit-align-items: end !important;
+    align-items: end !important;
+  }
+}
