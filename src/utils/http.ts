@@ -44,7 +44,7 @@ request.interceptors.request.use(
   { global: true },
 );
 
-request.interceptors.response.use(async (response: any) => {
+request.interceptors.response.use(async response => {
   const res = await response.clone().json();
   console.log(res);
   // const data: any = await Crypto.decrypt(res);
